@@ -9,6 +9,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-
 ## Features
 
 - Not Mine tab: Blade Ball, NDS, Flight Ultra and 99 Nights (third-party scripts).
+- BreakIn2: SlopHub Break Reality, with WindUI menus for items, healing, training, combat, teleports, badges and movement.
 - Infinite Yield: Universal Stuff. Launch from any game.
 - Rayfield interface with a code-formation intro and subtle background particles.
 - Execute to open the current game's menu; supported-game buttons to join another game.
