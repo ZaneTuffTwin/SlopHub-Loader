@@ -1,6 +1,6 @@
 # SlopHub
 
-One launcher for Kit PVP FFA, Terracraft SMP, Prison Club and Illegal Soccer Assist.
+One launcher for Kit PVP FFA, Terracraft SMP, PrisonLife and Illegal Soccer Assist.
 
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-Loader/main/loader.luau"))()
@@ -16,7 +16,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-
 - Execute to open the current game's menu; supported-game buttons to join another game.
 - Kit PVP FFA: combat tools, crystal/anchor automation, Elytra mace, Bob Mace and ESP.
 - Terracraft SMP: player/block ESP, farming, fly, freecam, noclip and teleport tools.
-- Prison Club 2.7: original Prison Club interface and tools.
+- PrisonLife 2.7: original PrisonLife interface and tools.
 - Illegal Soccer Assist 13.1: soccer assistance, goalkeeper and replay tools.
 - Ctrl hides or shows the launcher; game scripts retain their original controls.
 
