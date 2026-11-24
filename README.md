@@ -8,6 +8,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-
 
 ## Features
 
+- Infinite Yield: Universal Stuff. Launch from any game.
 - Rayfield interface with a code-formation intro and subtle background particles.
 - Execute to open the current game's menu; supported-game buttons to join another game.
 - Kit PVP FFA: combat tools, crystal/anchor automation, Elytra mace, Bob Mace and ESP.
