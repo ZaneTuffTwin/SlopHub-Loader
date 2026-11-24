@@ -12,7 +12,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-
 - BreakIn2: SlopHub Break Reality, with WindUI menus for items, healing, training, combat, teleports, badges and movement.
 - Anonymous launch counts: game and release only. Set `getgenv().SlopHubDisableStats = true` before loading to opt out.
 - Infinite Yield: Universal Stuff. Launch from any game.
-- Rayfield interface with a code-formation intro and subtle background particles.
+- Rayfield interface with a code-formation intro and floating particles.
+- Keyless creator splash: click to continue; click the blue @TrevorCreatesThings handle to copy it.
 - Execute to open the current game's menu; supported-game buttons to join another game.
 - Kit PVP FFA: combat tools, crystal/anchor automation, Elytra mace, Bob Mace and ESP.
 - Terracraft SMP: player/block ESP, farming, fly, freecam, noclip and teleport tools.
