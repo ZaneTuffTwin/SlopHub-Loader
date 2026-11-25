@@ -17,6 +17,10 @@ function Failures.new(api,phase,module)
   local stage,functionName,releaseVersion,phase,module=self.stage,self.functionName,self.version,self.phase,self.module
   -- Classify locally; raw exception text is never put into an event.
   local raw=tostring(err);local lower=raw:lower();local class='runtime'
+  local missing=raw:match('%[SlopHubAPI:([%w_%.]+)%]')
+  local knownAPIs={setthreadidentity=true,hookfunction=true,newcclosure=true,hookmetamethod=true,getnamecallmethod=true,getrawmetatable=true,getconnections=true,getgc=true,
+   ['debug.getupvalue']=true,['debug.setupvalue']=true,['debug.info']=true}
+  if missing and knownAPIs[missing] then functionName=missing end
   if code=='STARTUP_TIMEOUT' then class='timeout'
   elseif code=='MENU_NOT_CREATED' or lower:find('menu not created',1,true) then class='menu'
   elseif lower:find('nil value',1,true) or lower:find('missing method',1,true) or lower:find('requires ',1,true) then class='missing_api'
@@ -67,7 +71,7 @@ return Failures
 end)()
 -- GitHub HTTPS is the release trust anchor. Generated wrapper has no crypto dependency for reporting.
 local env={};if type(getgenv)=='function' then local ok,e=pcall(getgenv);if ok and type(e)=='table' then env=e end end
-local startup=Failures.new({env=env,releaseVersion="0.6.10"},'launcher')
+local startup=Failures.new({env=env,releaseVersion="0.6.11"},'launcher')
 local ok,result=xpcall(function()
  local base='https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-Loader/main'
  local http=game:GetService('HttpService')
