@@ -11,6 +11,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-
 - Not Mine tab: Blade Ball, NDS, Flight Ultra and 99 Nights (third-party scripts).
 - Beserk SlopHub (MM2): role ESP, coin chams, combat, farming, movement, teleports, House2 role fling and customizable animated WindUI themes.
 - BreakIn2: SlopHub Break Reality, with WindUI menus for items, healing, training, combat, teleports, badges and movement.
+- Startup-only failure diagnostics report stage/function labels, error codes, normalized messages and available line numbers if the launcher or a requested game menu fails to appear. No gameplay errors or raw stack traces; the stats opt-out disables reporting.
 - Build changes show an advisory warning and do not block supported games. Build diagnostics report game/build and executor name/version, never account IDs; the stats opt-out also disables these reports.
 - Anonymous launch counts: game and release only. Set `getgenv().SlopHubDisableStats = true` before loading to opt out.
 - Infinite Yield: Universal Stuff. Launch from any game.
