@@ -1,6 +1,6 @@
 # SlopHub
 
-One launcher for Kit PVP FFA, Terracraft SMP, PrisonLife and Illegal Soccer Assist.
+One launcher for Kit PVP FFA, Terracraft SMP, PrisonLife, Illegal Soccer Assist, BreakIn2 and Murder Mystery 2.
 
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-Loader/main/loader.luau"))()
@@ -9,6 +9,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-
 ## Features
 
 - Not Mine tab: Blade Ball, NDS, Flight Ultra and 99 Nights (third-party scripts).
+- Beserk SlopHub (MM2): role ESP, coin chams, combat, farming, movement, teleports, House2 role fling and customizable animated WindUI themes.
 - BreakIn2: SlopHub Break Reality, with WindUI menus for items, healing, training, combat, teleports, badges and movement.
 - Anonymous launch counts: game and release only. Set `getgenv().SlopHubDisableStats = true` before loading to opt out.
 - Infinite Yield: Universal Stuff. Launch from any game.
