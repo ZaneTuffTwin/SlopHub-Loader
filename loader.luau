@@ -2,6 +2,20 @@
 local Failures=(function()
 -- Startup failures only. No global error listener, gameplay logs or success pings.
 local Failures={}
+function Failures.detail(value,player)
+ local text=tostring(value):match('[^\r\n]+') or ''
+ if player then
+  for _,name in ipairs({player.Name or '',player.DisplayName or ''}) do
+   if #name>=3 then text=text:gsub(name:gsub('(%W)','%%%1'),'[player]') end
+  end
+ end
+ text=text:gsub('https?://%S+','[url]'):gsub('[%a]:[\\/][^:]*','[path]')
+ text=text:gsub('[%w_.+%-]+@[%w_.%-]+','[email]')
+ text=text:gsub('github_pat_[%w_]+','[credential]'):gsub('gh[pousr]_[%w_]+','[credential]')
+ text=text:gsub('[%w_%-]+',function(word) return #word>=40 and '[token]' or word end)
+ text=text:gsub('[^ -~]','?')
+ return text:sub(1,384)
+end
 local messages={missing_api='A required function is unavailable.',http='A download request failed.',
  timeout='No startup confirmation within 90 seconds.',compile='Downloaded code could not compile.',
  integrity='Downloaded code failed its integrity check.',menu='The expected menu was not created.',
@@ -10,12 +24,19 @@ function Failures.new(api,phase,module)
  local placeId,placeVersion=api.placeId or game.PlaceId,api.placeVersion or game.PlaceVersion
  local context={stage='bootstrap',functionName='SlopHub.entry',phase=phase,module=module or '',done=false,version=api.releaseVersion}
  function context:set(stage,name) if self.done then return end;self.stage=stage;self.functionName=name or self.functionName end
+ function context:compile(source,name)
+  self.compileUnit=name;self.compileBytes=#source
+  local _,lines=source:gsub('\n','');self.compileLines=lines+1
+  local ok,chunk,message=pcall(loadstring,source,name)
+  if not ok then return nil,tostring(chunk) end
+  return chunk,message
+ end
  function context:success() self.done=true end
  function context:cancel() self.done=true end
  function context:fail(err,code)
   if self.done then return end;self.done=true
   local stage,functionName,releaseVersion,phase,module=self.stage,self.functionName,self.version,self.phase,self.module
-  -- Classify locally; raw exception text is never put into an event.
+  -- Classify locally; Only the first sanitized exception line is reported; no stack or source body.
   local raw=tostring(err);local lower=raw:lower();local class='runtime'
   local missing=raw:match('%[SlopHubAPI:([%w_%.]+)%]')
   local knownAPIs={setthreadidentity=true,hookfunction=true,newcclosure=true,hookmetamethod=true,getnamecallmethod=true,getrawmetatable=true,getconnections=true,getgc=true,
@@ -49,7 +70,8 @@ function Failures.new(api,phase,module)
     place=placeId,build=placeVersion,
     executor=name,executorVersion=clean(version),phase=phase,module=module,
     stage=stage,code=code or 'STARTUP_ERROR',errorClass=class,message=messages[class],
-    functionName=functionName,line=line}
+    functionName=functionName,line=line,errorDetail=Failures.detail(raw,player),
+    compileUnit=self.compileUnit or '',compileBytes=self.compileBytes or 0,compileLines=self.compileLines or 0}
    local body=http:JSONEncode(event)
    for attempt=1,2 do
     local ok,response=pcall(send,{Url=api.failureEndpoint or 'https://slophub-execution-tracker.slophub-execution-tracker.workers.dev/failures',Method='POST',Headers={['Content-Type']='application/json'},Body=body})
@@ -71,7 +93,7 @@ return Failures
 end)()
 -- GitHub HTTPS is the release trust anchor. Generated wrapper has no crypto dependency for reporting.
 local env={};if type(getgenv)=='function' then local ok,e=pcall(getgenv);if ok and type(e)=='table' then env=e end end
-local startup=Failures.new({env=env,releaseVersion="0.6.13"},'launcher')
+local startup=Failures.new({env=env,releaseVersion="0.6.14"},'launcher')
 -- HttpGet's optional boolean is not portable across executor bridges. Use its
 -- raw/default form, then a standard request response if the bridge fails.
 local function fetchRelease(url,limit)
@@ -123,7 +145,7 @@ local ok,result=xpcall(function()
  assert(type(source)=='string' and #source==release.bytes and hash(source,'sha256'):lower()==release.sha256,'SlopHub: release integrity check failed')
  assert(loadstring==compile and crypt.hash==hash,'SlopHub: loader APIs changed during download')
  startup:set('payload_compile','loadstring')
- local chunk,message=compile(source,'SlopHub');assert(chunk,message)
+ local chunk,message=startup:compile(source,'SlopHub/Package');assert(chunk,message)
  startup:set('payload_start','SlopHub.payload')
  local launched=chunk(startup)
  assert(type(launched)=='table' and launched.gui and launched.alive,'SlopHub: launcher menu not created')
