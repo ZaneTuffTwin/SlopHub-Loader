@@ -1,6 +1,6 @@
 # SlopHub
 
-One launcher for Kit PVP FFA, Terracraft SMP, PrisonLife, Illegal Soccer Assist, BreakIn2 and Murder Mystery 2.
+One launcher for Blox Fruits, Kit PVP FFA, Terracraft SMP, PrisonLife, Illegal Soccer Assist, BreakIn2 and Murder Mystery 2.
 
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-Loader/main/loader.luau"))()
@@ -18,6 +18,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaneTuffTwin/SlopHub-
 - Rayfield interface with a code-formation intro and floating particles.
 - Keyless creator splash: click to continue; click the blue @TrevorCreatesThings handle to copy it.
 - Execute to open the current game's menu; supported-game buttons to join another game.
+- Slice (Blox Fruits, First Sea): auto farm, quests, PvP, ESP, fruit alerts and travel.
 - Kit PVP FFA: combat tools, crystal/anchor automation, Elytra mace, Bob Mace and ESP.
 - Terracraft SMP: player/block ESP, farming, fly, freecam, noclip and teleport tools.
 - PrisonLife 2.7: original PrisonLife interface and tools.

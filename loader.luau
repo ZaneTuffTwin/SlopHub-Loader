@@ -93,7 +93,7 @@ return Failures
 end)()
 -- GitHub HTTPS is the release trust anchor. Generated wrapper has no crypto dependency for reporting.
 local env={};if type(getgenv)=='function' then local ok,e=pcall(getgenv);if ok and type(e)=='table' then env=e end end
-local startup=Failures.new({env=env,releaseVersion="0.6.14"},'launcher')
+local startup=Failures.new({env=env,releaseVersion="0.6.15"},'launcher')
 -- HttpGet's optional boolean is not portable across executor bridges. Use its
 -- raw/default form, then a standard request response if the bridge fails.
 local function fetchRelease(url,limit)
